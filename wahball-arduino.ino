@@ -7,7 +7,9 @@
 #include <SPI.h>
 
 byte address = 0x00;
-int CS= 10;
+byte POT1 = 10;
+byte POT2 = 9;
+byte POT3 = 8;
 
 #define NUM_LEDS 5
 #define DATA_PIN 9
@@ -15,14 +17,22 @@ CRGB leds[NUM_LEDS];
 
 Adafruit_MSA301 msa;
 
+byte expression_a_val = 0;
+byte expression_b_val = 128;
+byte expression_c_val = 255;
 
 void setup(void) {
   Serial.begin(115200);
   FastLED.addLeds<WS2812B, DATA_PIN, RGB>(leds, NUM_LEDS);
   FastLED.setBrightness(  64 );
 
-  pinMode (CS, OUTPUT);
+  pinMode (POT1, OUTPUT);
+  pinMode (POT2, OUTPUT);
+  pinMode (POT3, OUTPUT);
+  
   SPI.begin();
+
+  return(0);
   
   while (!Serial) delay(10);     // will pause Zero, Leonardo, etc until serial console opens
 
@@ -108,10 +118,15 @@ void loop() {
   byte saturation = map(msa.y, -2000,2000,0, 255);
   setStripColor(CHSV(hue,255,100));
   
-  byte expression_a_val = map(msa.x, -2000,2000,0, 255);
+  // byte expression_a_val = map(msa.x, -2000,2000,0, 255);
+  expression_a_val++;
+  expression_b_val++;
+  expression_c_val++;
 //  byte expression_b_val = map(msa.y, -2000,2000,0, 255);
 
-   digitalPotWrite(expression_a_val);
+   digitalPotWrite(expression_a_val,POT1);
+   digitalPotWrite(expression_b_val,POT2);
+   digitalPotWrite(expression_c_val,POT3);
 
   Serial.print("  \tA out:  "); Serial.print(expression_a_val); 
 //  Serial.print("  \tB out:  "); Serial.print(expression_b_val); 
@@ -127,10 +142,10 @@ void setStripColor(CRGB c){
   FastLED.show();
 }
 
-int digitalPotWrite(int value)
+int digitalPotWrite(byte value, byte pin)
 {
-digitalWrite(CS, LOW);
+digitalWrite(pin, LOW);
 SPI.transfer(address);
 SPI.transfer(value);
-digitalWrite(CS, HIGH);
+digitalWrite(pin, HIGH);
 }
