@@ -1,6 +1,7 @@
 {
     "board": "arduino:avr:nano",
-    "sketch": "accelerometer-leds.ino",
-    "port": "/dev/cu.wchusbserial1420",
-    "configuration": "cpu=atmega328old"
+    "configuration": "cpu=atmega328",
+    "sketch": "wahball-arduino.ino",
+    "port": "/dev/cu.wchusbserial1410",
+    "output": "build"
 }
