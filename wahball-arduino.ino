@@ -1,5 +1,3 @@
-// Basic demo for accelerometer readings from Adafruit MSA301
-
 #include <Wire.h>
 #include <Adafruit_MSA301.h>
 #include <Adafruit_Sensor.h>
@@ -7,7 +5,7 @@
 #include <SPI.h>
 
 boolean DEBUG_MSA = false;
-boolean DEBUG_MAP = true;
+boolean DEBUG_MAP = false;
 
 Adafruit_MSA301 msa;
 byte address = 0x00;
@@ -15,9 +13,10 @@ byte EXP_A_PIN = 10;
 byte EXP_B_PIN = 9;
 byte EXP_C_PIN = 8;
 
-#define NUM_LEDS 5
-#define DATA_PIN 9
+#define NUM_LEDS 6
+#define LED_PIN 2
 CRGB leds[NUM_LEDS];
+#define BRIGHTNESS 64
 
 byte expression_a_val = 0;
 byte expression_b_val = 0;
@@ -40,8 +39,8 @@ void setup(void) {
   Serial.println("MSA301 Found.");
   if(DEBUG_MSA == true) printMSASettings();
 
-  FastLED.addLeds<WS2812B, DATA_PIN, RGB>(leds, NUM_LEDS);
-  FastLED.setBrightness(  64 );
+  FastLED.addLeds<WS2812B, LED_PIN, RGB>(leds, NUM_LEDS);
+  FastLED.setBrightness(  BRIGHTNESS );
   setStripColor(CRGB::Green);
   delay(500);
   setStripColor(CRGB::Black);
@@ -59,9 +58,9 @@ void loop() {
   byte saturation = map(msa.y, -2000,2000,0, 255);
   setStripColor(CHSV(hue,255,100));
   
-  byte expression_a_val = map(msa.x, -2000,2000,0, 255);
-  byte expression_b_val = map(msa.y, -2000,2000,0, 255);
-  byte expression_c_val = map(msa.z, -2000,2000,0, 255);
+  expression_a_val = map(msa.x, -2000,2000,0, 255);
+  expression_b_val = map(msa.y, -2000,2000,0, 255);
+  expression_c_val = map(msa.z, -2000,2000,0, 255);
 
   if(DEBUG_MAP == true) {
     Serial.print("A:"); Serial.print(expression_a_val);
@@ -73,6 +72,7 @@ void loop() {
   digitalPotWrite(expression_a_val,EXP_A_PIN);
   digitalPotWrite(expression_b_val,EXP_B_PIN);
   digitalPotWrite(expression_c_val,EXP_C_PIN);
+
 }
 
 void setStripColor(CRGB c){
