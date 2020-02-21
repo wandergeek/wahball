@@ -5,7 +5,7 @@
 #include <SPI.h>
 
 boolean DEBUG_MSA = false;
-boolean DEBUG_MAP = false;
+boolean DEBUG_MAP = true;
 
 Adafruit_MSA301 msa;
 byte address = 0x00;
