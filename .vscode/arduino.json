@@ -3,5 +3,5 @@
     "configuration": "cpu=atmega328",
     "sketch": "wahball.ino",
     "port": "/dev/cu.wchusbserial1420",
-    "output": "build"
+    "output": "../build"
 }

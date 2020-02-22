@@ -5,18 +5,18 @@ private:
     Adafruit_MSA301 msa;
 
 public:
-    boolean DEBUG_MSA;
-    
-    accelerometer() {
-        DEBUG_MSA = true;
-    };
+    boolean DEBUG_MSA = false;
 
     void setup() {
-        if (! msa.begin()) { Serial.println("Failed to find MSA301 chip"); }
+        if (! msa.begin()) { 
+            Serial.println("Failed to find MSA301 chip"); 
+        }
 
         Serial.println("MSA301 Found.");
 
-        if(DEBUG_MSA == true) { printMSASettings(); }
+        if(DEBUG_MSA == true) { 
+            printMSASettings(); 
+        }
     };
 
     void update() {
