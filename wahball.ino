@@ -6,11 +6,13 @@
 #define MODE_SELECT_PIN 3
 #define MODE_WAHBALL 1
 #define MODE_OSCILLATOR 2
-#define NUM_MODES 2 //I hate this, but itll do for now
+#define MODE_TESTER 3
+#define NUM_MODES 3 //I hate this, but itll do for now
 byte curMode;
 
 byte expression_values[] = {0,0,0};
 boolean DEBUG_MAP = false;
+boolean DEBUG_POTS = false;
 
 Accelerometer accel;
 ExpressionOut expression;
@@ -46,6 +48,13 @@ void loop() {
   } else if(curMode == MODE_OSCILLATOR) {
     Serial.println("woo im oscillating!");
     delay(100);
+
+   } else if(curMode == MODE_TESTER) {
+     expression_values[0] = map(pots.potValues[0], 0,1024,0, 255);
+     expression_values[1] = map(pots.potValues[1], 0,1024,0, 255);
+     expression_values[2] = map(pots.potValues[2], 0,1024,0, 255);
+     expression.update(expression_values);
+     if(DEBUG_POTS == true) { pots.print(); delay(100); }  
   }
 
 

@@ -3,9 +3,10 @@
 class Pots{
 private:
     byte potPins[NUM_POTS] = { A3,A6,A7,A0,A1,A2 };
-    short potValues[NUM_POTS];
 
 public:
+    short potValues[NUM_POTS];
+
     void setup() {
         for(int i=0; i<NUM_POTS; i++) {
             pinMode(potPins[i], INPUT);    
@@ -24,4 +25,7 @@ public:
         }
         Serial.println();
     }
+
+
+
 };
