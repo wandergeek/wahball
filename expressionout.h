@@ -1,9 +1,10 @@
 #include <SPI.h>
 
+#define NUM_EXP_OUT 3
+
 class ExpressionOut {
 
 private:
-    #define NUM_EXP_OUT 3
     byte EXP_OUT_PINS[NUM_EXP_OUT] = {10,9,8};
     byte address = 0x00;
 
