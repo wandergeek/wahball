@@ -1,7 +1,7 @@
 {
     "board": "arduino:avr:nano",
     "configuration": "cpu=atmega328",
-    "sketch": "wahball-arduino.ino",
-    "port": "/dev/cu.wchusbserial1410",
+    "sketch": "wahball.ino",
+    "port": "/dev/cu.wchusbserial1420",
     "output": "build"
 }
