@@ -2,7 +2,7 @@
 
 class Pots {
 private:
-    byte potPins[NUM_POTS] = { A3,A6,A7,A0,A1,A2 };
+    byte potPins[NUM_POTS] = { A7,A6,A3,A2,A1,A0 };
 
 public:
     short pot_vals[NUM_POTS];
@@ -15,7 +15,7 @@ public:
 
     void update() {
         for(int i=0; i<NUM_POTS; i++) {
-            pot_vals[i] = analogRead(potPins[i]);    
+            pot_vals[i] = 1024 - analogRead(potPins[i]);    
         }
     }
 

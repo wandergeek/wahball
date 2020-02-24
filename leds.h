@@ -20,7 +20,7 @@ public:
     setAll(CRGB::Green);
     delay(500);
     setAll(CRGB::Black);
-    setIndicatorsColor(CRGB::Red);
+    setIndicatorsColor(CRGB::Purple);
   }
 
   void setAll(CRGB c) {

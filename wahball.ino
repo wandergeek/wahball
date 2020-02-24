@@ -30,7 +30,7 @@ void setup() {
 
   pinMode(MODE_SELECT_PIN, INPUT);
   attachInterrupt(digitalPinToInterrupt(MODE_SELECT_PIN), advanceMode, CHANGE);
-  curMode = MODE_WAHBALL;
+  curMode = MODE_OSCILLATOR;
 }
 
 void loop() {
