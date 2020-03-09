@@ -31,6 +31,7 @@ void setup() {
   pinMode(MODE_SELECT_PIN, INPUT);
   attachInterrupt(digitalPinToInterrupt(MODE_SELECT_PIN), advanceMode, CHANGE);
   curMode = MODE_OSCILLATOR;
+  leds.setIndicatorsColor(CRGB::Purple);
 }
 
 void loop() {
@@ -39,7 +40,7 @@ void loop() {
 
   if (curMode == MODE_WAHBALL) {
     byte hue = map(accel.x(), -2000, 2000, 0, 255);
-    leds.setAll(CHSV(hue, 255, 100));
+    leds.setIndicatorsColor(CHSV(hue,255,100));
     exp_vals[0] = map(accel.x(), -2000, 2000, 0, 255);
     exp_vals[1] = map(accel.y(), -2000, 2000, 0, 255);
     exp_vals[2] = map(accel.z(), -2000, 2000, 0, 255);
@@ -48,6 +49,7 @@ void loop() {
       printExpressionValues();
     }
     expression.update(exp_vals);
+    leds.setIndicatorsBrightness(exp_vals);
 
 
   } else if (curMode == MODE_OSCILLATOR) {
@@ -85,9 +87,13 @@ void printExpressionValues() {
 
 void advanceMode() {
   curMode++;
-  if (curMode > NUM_MODES)
-  {
+  if (curMode > NUM_MODES) {
     curMode = 1;
+  }
+  if(curMode == MODE_TESTER) {
+    leds.setIndicatorsColor(CRGB::Red);
+  } else if(curMode == MODE_OSCILLATOR) {
+    leds.setIndicatorsColor(CRGB::Purple);
   }
   Serial.print("switching to mode ");
   Serial.println(curMode);

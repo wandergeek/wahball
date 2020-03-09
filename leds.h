@@ -20,7 +20,6 @@ public:
     setAll(CRGB::Green);
     delay(500);
     setAll(CRGB::Black);
-    setIndicatorsColor(CRGB::Purple);
   }
 
   void setAll(CRGB c) {
@@ -44,4 +43,9 @@ public:
     currentRGBIndicatorColor = c;
     currentHSVIndicatorColor = rgb2hsv_approximate(c);
   }
+
+  void setIndicatorsColor(CHSV c) {
+    currentHSVIndicatorColor = c;
+  }
+
 };
